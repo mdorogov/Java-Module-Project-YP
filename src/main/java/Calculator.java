@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Calculator {
-    static int people;
+    int people;
 
     Calculator(int people) {
         this.people = people;
@@ -11,13 +11,13 @@ public class Calculator {
     static double sumItemPrices = 0;
     static Scanner scanner = new Scanner(System.in);
 
-    public static void askUser() {
-        String userResponce = "1";
+    public void askUser() {
         String itemName;
         double itemPrice = 0;
+        boolean isDataEntered = false;
 
 
-        while (!userResponce.equals("0")) {
+        while (!isDataEntered) {
             boolean isPriceEntered = false;
             System.out.println("Введите название товара");
             itemName = scanner.next();
@@ -38,13 +38,12 @@ public class Calculator {
             }
             Item item = new Item(itemName, itemPrice);
             items = items + "\n" + item.name;
-            sumItemPrices = sumItemPrices + item.price;
+            sumItemPrices += item.price;
             System.out.println("Товар успешно добавлен");
             System.out.println("Если хотите добавить еще товар, то введите - 1 \n" +
                     "Если нет, введите - Завершить");
-            userResponce = scanner.next();
-            if (userResponce.equalsIgnoreCase("завершить")) {
-                userResponce = "0";
+            if (scanner.next().equalsIgnoreCase("завершить")) {
+                isDataEntered = true;
                 scanner.close();
                 calculation();
             }
@@ -53,7 +52,7 @@ public class Calculator {
 
     }
 
-    public static void calculation() {
+    public void calculation() {
         Formatter formatter = new Formatter();
         double sumPerPerson = sumItemPrices / people;
         // String sumRubStr = formatter.rubFormatter(sumPerPerson);
